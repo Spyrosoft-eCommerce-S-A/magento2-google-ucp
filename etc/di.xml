@@ -1,0 +1,117 @@
+<?xml version="1.0" ?>
+<!--
+ Copyright © SpyroSoft. All rights reserved.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Spyrosoft\Ucp\Api\CheckoutManagementInterface" type="Spyrosoft\Ucp\Service\Api\CheckoutManagement" />
+
+    <preference for="Spyrosoft\Ucp\Api\Data\CheckoutInterface" type="Spyrosoft\Ucp\Model\Data\Checkout" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\BuyerInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Buyer" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\FulfillmentInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Fulfillment" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Fulfillment\GroupInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Fulfillment\Group" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Fulfillment\MethodInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Fulfillment\Method" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Fulfillment\OptionInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Fulfillment\Option" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Fulfillment\ShippingDestinationInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Fulfillment\ShippingDestination" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\LineItemInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\LineItem" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\LineItem\ItemInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\LineItem\Item" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\MessageInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Message" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\OrderConfirmationInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\OrderConfirmation" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\PaymentInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Payment" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Payment\HandlerInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Payment\Handler" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Payment\InstrumentInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Payment\Instrument" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\Payment\TokenCredentialInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Payment\TokenCredential" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\PostalAddressInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\PostalAddress" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Checkout\TotalInterface" type="Spyrosoft\Ucp\Model\Data\Checkout\Total" />
+    <preference for="Spyrosoft\Ucp\Api\Data\UcpInterface" type="Spyrosoft\Ucp\Model\Data\Ucp" />
+    <preference for="Spyrosoft\Ucp\Api\Data\Ucp\CapabilityInterface" type="Spyrosoft\Ucp\Model\Data\Ucp\Capability" />
+
+    <preference for="Spyrosoft\Ucp\Service\Builder\Checkout\BuilderInterface" type="Spyrosoft\Ucp\Service\Builder\Checkout\CompositeBuilder" />
+    <preference for="Spyrosoft\Ucp\Service\Validator\Checkout\ValidatorInterface" type="Spyrosoft\Ucp\Service\Validator\Checkout\CompositeValidator" />
+    <preference for="Spyrosoft\Ucp\Service\Validator\Request\ValidatorInterface" type="Spyrosoft\Ucp\Service\Validator\Request\CompositeValidator" />
+
+    <type name="Spyrosoft\Ucp\Service\Validator\Checkout\CompositeValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="fulfillment" xsi:type="object">Spyrosoft\Ucp\Service\Validator\Checkout\Validator\Fulfillment</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Spyrosoft\Ucp\Service\Validator\Request\CompositeValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="moduleStatus" xsi:type="object">Spyrosoft\Ucp\Service\Validator\Request\Validator\ModuleStatus</item>
+                <item name="currency" xsi:type="object">Spyrosoft\Ucp\Service\Validator\Request\Validator\Currency</item>
+                <item name="ucpAgent" xsi:type="object">Spyrosoft\Ucp\Service\Validator\Request\Validator\UcpAgent</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Spyrosoft\Ucp\Service\Payment\HandlerList">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="przelewy24_google_pay" xsi:type="object">Spyrosoft\Ucp\Service\Payment\Handler\P24GooglePay</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Spyrosoft\Ucp\Service\Builder\Checkout\CompositeBuilder">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="buyer" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\Buyer</item>
+                <item name="line_items" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\LineItems</item>
+                <item name="totals" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\Totals</item>
+                <item name="payment" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\Payment</item>
+                <item name="fulfillment" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\Fulfillment</item>
+                <item name="order" xsi:type="object">Spyrosoft\Ucp\Service\Builder\Checkout\OrderConfirmation</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Spyrosoft\Ucp\Service\Builder\Ucp">
+        <arguments>
+            <argument name="capabilities" xsi:type="array">
+                <item name="dev.ucp.shopping.checkout" xsi:type="array">
+                    <item name="spec" xsi:type="string">https://ucp.dev/specification/checkout</item>
+                    <item name="schema" xsi:type="string">https://ucp.dev/schemas/shopping/checkout.json</item>
+                </item>
+                <item name="dev.ucp.shopping.fulfillment" xsi:type="array">
+                    <item name="spec" xsi:type="string">https://ucp.dev/specification/fulfillment</item>
+                    <item name="schema" xsi:type="string">https://ucp.dev/schemas/shopping/fulfillment.json</item>
+                    <item name="extends" xsi:type="string">dev.ucp.shopping.checkout</item>
+                </item>
+                <item name="dev.ucp.shopping.order" xsi:type="array">
+                    <item name="spec" xsi:type="string">https://ucp.dev/specification/order</item>
+                    <item name="schema" xsi:type="string">https://ucp.dev/schemas/shopping/order.json</item>
+                </item>
+            </argument>
+            <argument name="services" xsi:type="array">
+                <item name="dev.ucp.shopping" xsi:type="array">
+                    <item name="spec" xsi:type="string">https://ucp.dev/specification/overview</item>
+                    <item name="rest" xsi:type="array">
+                        <item name="schema" xsi:type="string">https://ucp.dev/services/shopping/rest.openapi.json</item>
+                        <item name="endpoint" xsi:type="string">rest/V1/ucp</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Spyrosoft\Ucp\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/ucp.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Spyrosoft\Ucp\Logger\Logger" type="Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">ucp</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="base" xsi:type="object">Spyrosoft\Ucp\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Spyrosoft\Ucp\Service\Api\Checkout\CompleteSession">
+        <arguments>
+            <argument name="logger" xsi:type="object">Spyrosoft\Ucp\Logger\Logger</argument>
+        </arguments>
+    </type>
+</config>

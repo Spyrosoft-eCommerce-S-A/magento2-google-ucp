@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<!--
+ Copyright © SpyroSoft. All rights reserved.
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/ucp/checkout-sessions" method="POST">
+        <service class="Spyrosoft\Ucp\Api\CheckoutManagementInterface" method="create" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/ucp/checkout-sessions/:checkoutId" method="PUT">
+        <service class="Spyrosoft\Ucp\Api\CheckoutManagementInterface" method="update" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/ucp/checkout-sessions/:checkoutId" method="GET">
+        <service class="Spyrosoft\Ucp\Api\CheckoutManagementInterface" method="get" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/ucp/checkout-sessions/:checkoutId/complete" method="POST">
+        <service class="Spyrosoft\Ucp\Api\CheckoutManagementInterface" method="complete" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/ucp/checkout-sessions/:checkoutId/cancel" method="POST">
+        <service class="Spyrosoft\Ucp\Api\CheckoutManagementInterface" method="cancel" />
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

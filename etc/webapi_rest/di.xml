@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+ Copyright © SpyroSoft. All rights reserved.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Reflection\DataObjectProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="Spyrosoft\Ucp\Model\Data\Checkout\Payment\Handler" xsi:type="object">Spyrosoft\Ucp\Model\Webapi\PaymentHandlerOutputProcessor\Proxy</item>
+                <item name="Spyrosoft\Ucp\Model\Data\Ucp" xsi:type="object">Spyrosoft\Ucp\Model\Webapi\UcpOutputProcessor\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
