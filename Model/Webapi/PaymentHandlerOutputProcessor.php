@@ -15,7 +15,7 @@ class PaymentHandlerOutputProcessor
         array $result
     ): array {
         if (!empty($handler->getConfig())) {
-            $result['config'] = $handler->getConfig();
+            $result[HandlerInterface::CONFIG] = $handler->getConfig();
         }
 
         return $result;

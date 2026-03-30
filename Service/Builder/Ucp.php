@@ -13,15 +13,17 @@ use Spyrosoft\Ucp\Api\Data\Ucp\CapabilityInterface;
 use Spyrosoft\Ucp\Api\Data\Ucp\CapabilityInterfaceFactory;
 use Spyrosoft\Ucp\Api\Data\UcpInterface;
 use Spyrosoft\Ucp\Api\Data\UcpInterfaceFactory;
+use Spyrosoft\Ucp\Service\Payment\HandlerList;
 
 class Ucp
 {
-    public const string SCHEMA_VERSION = '2026-01-11';
+    public const string SCHEMA_VERSION = '2026-01-23';
 
     public function __construct(
         private readonly UcpInterfaceFactory $ucpFactory,
         private readonly CapabilityInterfaceFactory $capabilityFactory,
         private readonly StoreManagerInterface $storeManager,
+        private readonly HandlerList $paymentHandlerList,
         private readonly array $capabilities = [],
         private readonly array $services = []
     ) {
@@ -71,10 +73,12 @@ class Ucp
                 $capability->setConfig($capabilityConfig['config']);
             }
 
-            $capabilities[] = $capability;
+            $capabilities[$name] = $capability;
         }
 
         $ucp->setCapabilities($capabilities);
+
+        $ucp->setPaymentHandlers($this->paymentHandlerList->execute());
 
         return $ucp;
     }

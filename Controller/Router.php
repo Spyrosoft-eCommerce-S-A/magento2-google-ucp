@@ -11,7 +11,7 @@ use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\Router\ActionList;
 use Magento\Framework\App\RouterInterface;
-use Spyrosoft\Uci\Service\Config;
+use Spyrosoft\Ucp\Service\Config;
 
 class Router implements RouterInterface
 {

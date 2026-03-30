@@ -15,7 +15,27 @@ class UcpOutputProcessor
         array $result
     ): array {
         if (!empty($ucp->getServices())) {
-            $result['services'] = $ucp->getServices();
+            $result[UcpInterface::SERVICES] = $ucp->getServices();
+        }
+
+        if (!empty($ucp->getCapabilities())) {
+            $result[UcpInterface::CAPABILITIES] = [];
+
+            foreach ($ucp->getCapabilities() as $key => $data) {
+                $result[UcpInterface::CAPABILITIES][$key] = [
+                    $data->getData()
+                ];
+            }
+        }
+
+        if (!empty($ucp->getPaymentHandlers())) {
+            $result[UcpInterface::PAYMENT_HANDLERS] = [];
+
+            foreach ($ucp->getPaymentHandlers() as $key => $data) {
+                $result[UcpInterface::PAYMENT_HANDLERS][$key] = [
+                    $data->getData()
+                ];
+            }
         }
 
         return $result;

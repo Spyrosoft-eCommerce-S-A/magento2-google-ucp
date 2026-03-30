@@ -10,6 +10,7 @@ interface UcpInterface
     public const VERSION = 'version';
     public const SERVICES = 'services';
     public const CAPABILITIES = 'capabilities';
+    public const PAYMENT_HANDLERS = 'payment_handlers';
 
     /**
      * @return string
@@ -25,6 +26,11 @@ interface UcpInterface
      * @return \Spyrosoft\Ucp\Api\Data\Ucp\CapabilityInterface[]
      */
     public function getCapabilities(): array;
+
+    /**
+     * @return \Spyrosoft\Ucp\Api\Data\Checkout\Payment\HandlerInterface[]
+     */
+    public function getPaymentHandlers(): array;
 
     /**
      * @param string $version
@@ -43,4 +49,10 @@ interface UcpInterface
      * @return self
      */
     public function setCapabilities(array $capabilities): self;
+
+    /**
+     * @param \Spyrosoft\Ucp\Api\Data\Checkout\Payment\HandlerInterface[] $paymentHandlers
+     * @return self
+     */
+    public function setPaymentHandlers(array $paymentHandlers): self;
 }

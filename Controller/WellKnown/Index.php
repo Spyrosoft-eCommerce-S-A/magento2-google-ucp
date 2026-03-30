@@ -11,7 +11,6 @@ use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Spyrosoft\Ucp\Model\Data\Ucp as UcpData;
-use Spyrosoft\Ucp\Service\Builder\Payment;
 use Spyrosoft\Ucp\Service\Builder\Ucp;
 use Spyrosoft\Ucp\Service\Validator\Request\ValidatorInterface;
 
@@ -20,7 +19,6 @@ class Index implements HttpGetActionInterface
     public function __construct(
         private readonly JsonFactory $resultJsonFactory,
         private readonly Ucp $ucpBuilder,
-        private readonly Payment $paymentBuilder,
         private readonly ValidatorInterface $requestValidator
     ) {
     }
@@ -44,13 +42,23 @@ class Index implements HttpGetActionInterface
 
         /** @var UcpData $ucp */
         $ucp = $this->ucpBuilder->build();
-        /** @var \Spyrosoft\Ucp\Model\Data\Checkout\Payment $payment */
-        $payment = $this->paymentBuilder->build();
+        $data = $ucp->toArray();
+
+        if (isset($data['capabilities'])) {
+            foreach ($data['capabilities'] as $key => $capability) {
+                $data['capabilities'][$key] = [$capability];
+            }
+        }
+
+        if (isset($data['payment_handlers'])) {
+            foreach ($data['payment_handlers'] as $key => $handler) {
+                $data['payment_handlers'][$key] = [$handler];
+            }
+        }
 
         $result->setData(
             [
-                'ucp' => $ucp->toArray(),
-                'payment' => $payment->toArray(),
+                'ucp' => $data
             ]
         );
 

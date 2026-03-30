@@ -38,6 +38,17 @@ class Ucp extends DataObject implements UcpInterface
         return $result;
     }
 
+    public function getPaymentHandlers(): array
+    {
+        $result = $this->getData(self::PAYMENT_HANDLERS);
+
+        if (!$result || !is_array($result)) {
+            return [];
+        }
+
+        return $result;
+    }
+
     public function setVersion(string $version): UcpInterface
     {
         return $this->setData(self::VERSION, $version);
@@ -51,5 +62,10 @@ class Ucp extends DataObject implements UcpInterface
     public function setCapabilities(array $capabilities): UcpInterface
     {
         return $this->setData(self::CAPABILITIES, $capabilities);
+    }
+
+    public function setPaymentHandlers(array $paymentHandlers): UcpInterface
+    {
+        return $this->setData(self::PAYMENT_HANDLERS, $paymentHandlers);
     }
 }

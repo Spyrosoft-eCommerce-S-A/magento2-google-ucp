@@ -247,6 +247,12 @@ Register custom capabilities for your UCP implementation:
 - **Continue URL** - Add support for `continue_url` to implement checkout session recovery flow
 - **Product Images** - Include product `image_url` in line item representation
 
+### Cart Capability
+- **Cart** - Implement [Cart Capability](https://ucp.dev/draft/specification/cart/) for pre-checkout cart management and persistence
+
+### Catalog Capability
+- **Catalog** - Implement [Catalog Capability](https://ucp.dev/draft/specification/catalog/)
+
 ### Checkout Fulfillment
 - **Pickup Point Fulfillment** - Integrate with [in-store](https://ucp.dev/specification/fulfillment/#retail-location-response) pickup shipping methods
 

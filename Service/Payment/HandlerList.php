@@ -31,7 +31,7 @@ class HandlerList
             $handler = $provider->getHandler();
 
             if ($handler instanceof HandlerInterface) {
-                $result[] = $handler;
+                $result[$handler->getId()] = $handler;
             }
         }
 
